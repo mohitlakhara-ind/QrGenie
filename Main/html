@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRGenie</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            padding: 0 10px;
+            min-height: 100vh;
+            align-items: center;
+            background: #a6aeb4;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        ::selection {
+            color: #fff;
+            background: #3498DB;
+        }
+
+        .wrapper {
+            height: 380px;
+            max-width: 410px;
+            background: #e7d4d4;
+            border-radius: 7px;
+            padding: 20px 25px 0;
+            transition: height 0.2s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .wrapper.active {
+            height: 650px;
+        }
+
+        header {
+            margin: 2rem;
+            background-color: #c7d8e4;
+            padding: 1rem;
+            border-radius: 1.5rem;
+        }
+
+        header h1 {
+            font-size: 40px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        header p {
+            margin-top: 5px;
+            color: #575757;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        .wrapper .form {
+            margin: 20px 0 25px;
+        }
+
+        .form :where(input, button) {
+            width: 100%;
+            height: 55px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            transition: 0.1s ease;
+        }
+
+        .form input {
+            font-size: 18px;
+            padding: 0 17px;
+            border: 1px solid #999;
+        }
+
+        .form input:focus {
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
+        }
+
+        .form input::placeholder {
+            color: #999;
+        }
+
+        .form button, .form a {
+            color: #fff;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 17px;
+            background: #44e14e;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+        }
+
+        .form a {
+            background: #3498DB;
+        }
+
+        .color-picker {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .color-picker label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .color-picker input[type="color"] {
+            border: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        .qr-code {
+            opacity: 0;
+            display: flex;
+            padding: 33px 0;
+            border-radius: 5px;
+            align-items: center;
+            pointer-events: none;
+            justify-content: center;
+            border: 1px solid #ccc;
+        }
+
+        .wrapper.active .qr-code {
+            opacity: 1;
+            pointer-events: auto;
+            transition: opacity 0.5s 0.05s ease;
+        }
+
+        .qr-code img {
+            width: 170px;
+        }
+
+        @media (max-width: 430px) {
+            .wrapper {
+                height: 255px;
+                padding: 16px 20px;
+            }
+
+            .wrapper.active {
+                height: 510px;
+            }
+
+            header p {
+                color: #696969;
+            }
+
+            .form :where(input, button) {
+                height: 52px;
+            }
+
+            .qr-code img {
+                width: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>QRGenie</h1>
+        <p>Paste the URL/Text here</p>
+    </header>
+    <div class="wrapper">
+        <div class="form">
+            <input type="text" placeholder="Enter URL/Text" aria-label="URL/Text">
+            <div class="color-picker">
+                <label for="fg-color">
+                    Foreground Color
+                    <input type="color" id="fg-color" value="#000000" aria-label="Foreground Color">
+                </label>
+                <label for="bg-color">
+                    Background Color
+                    <input type="color" id="bg-color" value="#ffffff" aria-label="Background Color">
+                </label>
+            </div>
+            <button aria-label="Generate QR Code">Generate QR Code</button>
+            <a id="download-btn" href="#" download="qrcode.png" aria-label="Download QR Code">Download QR Code</a>
+        </div>
+        <div class="qr-code">
+            <img decoding="async" src="" alt="QR code">
+        </div>
+    </div>
+    <script>
+        const wrapper = document.querySelector(".wrapper");
+        const qrInput = wrapper.querySelector(".form input[type='text']");
+        const generateBtn = wrapper.querySelector(".form button");
+        const qrImg = wrapper.querySelector(".qr-code img");
+        const downloadBtn = document.querySelector("#download-btn");
+        const fgColorInput = document.querySelector("#fg-color");
+        const bgColorInput = document.querySelector("#bg-color");
+        let preValue = "";
+
+        generateBtn.addEventListener("click", () => {
+            let qrValue = qrInput.value.trim();
+            if (!qrValue || preValue === qrValue) return;
+            preValue = qrValue;
+            generateBtn.innerText = "Generating QR Code...";
+
+            // Get selected colors
+            const fgColor = fgColorInput.value.substring(1); // Remove the '#' from hex
+            const bgColor = bgColorInput.value.substring(1);
+
+            // Generate the QR code URL with color options
+            const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrValue)}&color=${fgColor}&bgcolor=${bgColor}`;
+            qrImg.src = qrCodeURL;
+
+            qrImg.addEventListener("load", () => {
+                wrapper.classList.add("active");
+                generateBtn.innerText = "Generate QR Code";
+                // Update download button
+                downloadBtn.href = qrImg.src;
+            });
+        });
+
+        qrInput.addEventListener("keyup", () => {
+            if (!qrInput.value.trim()) {
+                wrapper.classList.remove("active");
+                preValue = "";
+            }
+        });
+    </script>
+</body>
+
+</html>
