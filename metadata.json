@@ -1,0 +1,14 @@
+{
+  "name": "QrGenie",
+  "description": "Professional learning codebase built with JavaScript.",
+  "topics": [
+    "javascript",
+    "learning",
+    "optimized-portfolio"
+  ],
+  "homepage_url": "https://github.com/mohitlakhara-ind/QrGenie",
+  "private": false,
+  "has_issues": true,
+  "has_projects": true,
+  "has_wiki": true
+}

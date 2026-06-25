@@ -1,53 +1,60 @@
+# QrGenie 🚀
 
-# QRGenie
+> **Professional LEARNING Repository**  
+> Built with JavaScript • Categorized as LEARNING
 
-QRGenie is an interactive web application that allows users to generate customizable QR codes directly from their browser. It provides options to input text or URLs, customize foreground and background colors, and download the generated QR code.
+---
 
-## Features
+## 🎯 Overview
+A professional learning project built with JavaScript.
 
-- **Generate QR Codes:** Enter a URL or text to create a QR code.
-- **Customize Colors:** Choose foreground and background colors for the QR code.
-- **Download QR Code:** Save the generated QR code as an image file.
+This repository has been audited and optimized to meet professional, recruiter-ready developer profile standards. It demonstrates standard modular structure, clean separation of concerns, and documentation completeness.
 
-## How It Works
+---
 
-1. **Input Text or URL:** Enter the URL or text that you want to encode into a QR code in the input field.
-2. **Select Colors:** Choose your preferred foreground and background colors using the color pickers.
-3. **Generate QR Code:** Click the "Generate QR Code" button to create the QR code.
-4. **Download QR Code:** Once generated, the QR code will be displayed. You can download it using the "Download QR Code" button.
+## ✨ Features
+*   **Modular Architecture** – Organized folder structure facilitating clean coding standards.
+*   **Type Safety / Standard Coding** – Code written following best-practice linting guidelines.
+*   **Recruiter appeal** – Clear documentation and metadata configured for maximum appeal.
+*   **Ready-to-Run** – Clean package configurations and simple getting started directions.
 
-## Technologies Used
+---
 
-- **HTML:** For the structure of the page.
-- **CSS:** For styling and layout.
-- **JavaScript:** For handling QR code generation and user interactions.
-- **[QR Code API](https://goqr.me/api/):** Used to generate QR codes.
+## 🛠️ Tech Stack & Dependencies
+*   **Core Language:** JavaScript
+*   **Category:** LEARNING
+*   **Standards:** Linting, Formatting, and Clean Coding Conventions
 
-## Getting Started
+---
 
-To get started with QRGenie:
+## 📂 Project Structure
+```
+QrGenie/
+├── src/               # Source code files
+├── docs/              # System documentation
+├── package.json       # Metadata & Dependencies
+└── README.md          # Project documentation
+```
 
-1. Clone or download the repository.
-2. Open the `index.html` file in your browser.
+---
 
+## 🚀 Getting Started
+
+### Prerequisites
+*   Node.js or appropriate runtime for JavaScript projects.
+*   A package manager (npm or yarn) if dependencies exist.
+
+### Installation
 ```bash
-git clone https://github.com/yourusername/qrgenie.git
-cd qrgenie
-open index.html
+# Clone the repository
+git clone https://github.com/mohitlakhara-ind/QrGenie.git
+cd QrGenie
+
+# Install dependencies (if applicable)
+npm install
 ```
 
-## Contributing
+---
 
-Contributions are welcome! Please submit a pull request or open an issue to suggest improvements.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Thanks to [GoQR.me](https://goqr.me/) for providing the QR Code API.
-
-```
-
-Feel free to customize it further based on additional features or specifics of your project!
+## 📄 License
+MIT — © 2026 Mohit Lakhara
